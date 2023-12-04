@@ -15,26 +15,39 @@ function displayData(data) {
     // Clear previous data
     dataContainer.innerHTML = '';
 
-    // Create a table to display the data
-    const table = document.createElement('table');
-    table.border = '1';
+    // Extract labels and values from the data
+    const labels = data.map(item => item.country);
+    const values = data.map(item => item.divorceRatesByCountry_divorceRate);
 
-    // Create table header
-    const headerRow = table.insertRow();
-    const countryHeader = headerRow.insertCell(0);
-    const rateHeader = headerRow.insertCell(1);
-    countryHeader.innerHTML = '<b>Country</b>';
-    rateHeader.innerHTML = '<b>Divorce Rate</b>';
 
-    // Create table rows
-    data.forEach(item => {
-        const row = table.insertRow();
-        const countryCell = row.insertCell(0);
-        const rateCell = row.insertCell(1);
-        countryCell.innerHTML = item.country;
-        rateCell.innerHTML = item.divorceRate;
+    // Create a canvas element to render the chart
+    const canvas = document.createElement('canvas');
+    canvas.width = 600;
+    canvas.height = 400;
+    dataContainer.appendChild(canvas);
+
+    // Get 2D rendering context for the canvas
+    const ctx = canvas.getContext('2d');
+
+    // Create a bar chart
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Divorce Rates by Country',
+                data: values,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
     });
-
-    // Append the table to the data container
-    dataContainer.appendChild(table);
 }

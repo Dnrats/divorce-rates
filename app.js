@@ -1,5 +1,5 @@
-const express = require('express');
-const mysql = require('mysql');
+import express from 'express';
+import mysql from 'mysql';
 const app = express();
 const port = 3000;
 
@@ -39,6 +39,8 @@ app.get('/', (req, res) => {
   res.send('Welcome to Divorce Rates Worldwide');
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-});
+module.exports = app;
+
+export const handler = async (event, context) => {
+  return app(event, context);
+};
