@@ -13,10 +13,18 @@ const dbConfig = {
 
 // Create a MySQL connection pool
 const pool = mysql.createPool(dbConfig);
+pool.getConnection((err, connection) => {
+  if (err) {
+    console.error('Error connecting to MySQL:', err);
+    return;
+  }
+  console.log('Connected to MySQL database!');
+  connection.release();
+});
 
 // API endpoint to fetch data
 app.get('/api/data', (req, res) => {
-  pool.query('SELECT * FROM your_table_name', (error, results) => {
+  pool.query('SELECT * FROM TABLE 1', (error, results) => {
     if (error) {
       console.error('Error fetching data:', error);
       res.status(500).json({ error: 'Internal Server Error' });
@@ -24,6 +32,11 @@ app.get('/api/data', (req, res) => {
       res.json(results);
     }
   });
+});
+
+// Route handler for the root URL
+app.get('/', (req, res) => {
+  res.send('Welcome to Divorce Rates Worldwide');
 });
 
 app.listen(port, () => {
