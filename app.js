@@ -5,10 +5,10 @@ const port = 3000;
 
 // MySQL connection configuration
 const dbConfig = {
-  host: 'your_mysql_host',
-  user: 'your_mysql_user',
-  password: 'your_mysql_password',
-  database: 'your_mysql_database',
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
 };
 
 // Create a MySQL connection pool
