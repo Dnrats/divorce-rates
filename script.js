@@ -1,24 +1,24 @@
+import Chart from 'chart.js/auto';
 function fetchData() {
     const sampleData = [
         { country: 'Country A', divorceRate: 2.5 },
         { country: 'Country B', divorceRate: 3.7 },
         { country: 'Country C', divorceRate: 1.8 },
     ];
-
+console.log('number1');
     // Display the data
     displayData(sampleData);
 }
 
 function displayData(data) {
     const dataContainer = document.getElementById('dataContainer');
-
+console.log('number2');
     // Clear previous data
     dataContainer.innerHTML = '';
 
     // Extract labels and values from the data
     const labels = data.map(item => item.country);
-    const values = data.map(item => item.divorceRatesByCountry_divorceRate);
-
+    const values = data.map(item => item.divorceRate);
 
     // Create a canvas element to render the chart
     const canvas = document.createElement('canvas');
@@ -51,3 +51,7 @@ function displayData(data) {
         }
     });
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    fetchData(); // Call fetchData when the DOM is loaded
+});
